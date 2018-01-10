@@ -19,6 +19,7 @@ namespace Partiality {
         public ModManager modManager;
 
         public PartialityManager() {
+            mainPath = Directory.GetParent(Application.dataPath).ToString();
             modManager = new ModManager();
             modManager.Init();
         }

@@ -49,7 +49,11 @@ namespace Partiality.Modloader {
 
             //Check for dependencies. Load mods that have all dependencies, skip ones that don't.
             foreach( string filePath in modFiles ) {
-                Assembly modAssembly = Assembly.LoadFrom( filePath );
+                try {
+                    Assembly modAssembly = Assembly.LoadFrom( filePath );
+                } catch (System.Exception e ) {
+                    Debug.LogError( e );
+                }
             }
 
             Type modType = typeof( PartialityMod );
@@ -93,9 +97,13 @@ namespace Partiality.Modloader {
             //Call mod load function
             foreach( PartialityMod pMod in loadedMods ) {
                 Debug.Log( "Loaded mod " + pMod.ModID + " succesfully." );
-                pMod.BaseLoad();
-                pMod.OnLoad();
-                pMod.OnEnable();
+                try {
+                    pMod.BaseLoad();
+                    pMod.OnLoad();
+                    pMod.OnEnable();
+                } catch (System.Exception e ) {
+                    Debug.LogError( e );
+                }
             }
 
         }
