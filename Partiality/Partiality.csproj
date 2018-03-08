@@ -46,7 +46,6 @@
     <Compile Include="Modloader\AssetLoading\ModelLoader.cs" />
     <Compile Include="Modloader\AssetLoading\PrefabLoader.cs" />
     <Compile Include="Modloader\AssetLoading\TextureLoader.cs" />
-    <Compile Include="Modloader\ModDependency.cs" />
     <Compile Include="Modloader\ModManager.cs" />
     <Compile Include="Modloader\PartialityMod.cs" />
     <Compile Include="PartialityManager.cs" />

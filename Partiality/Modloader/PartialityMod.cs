@@ -13,7 +13,6 @@ namespace Partiality.Modloader {
 
         public bool isEnabled;
 
-        public ModDependency[] modDependencies = new ModDependency[]{ };
 
         internal void BaseInit() {
             Init();

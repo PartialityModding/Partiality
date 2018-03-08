@@ -19,9 +19,13 @@ namespace Partiality {
         public ModManager modManager;
 
         public PartialityManager() {
-            mainPath = Directory.GetParent(Application.dataPath).ToString();
-            modManager = new ModManager();
-            modManager.Init();
+            try {
+                mainPath = Directory.GetParent( Application.dataPath ).ToString();
+                modManager = new ModManager();
+                modManager.Init();
+            } catch (System.Exception e ) {
+                File.WriteAllText(Application.dataPath + "/errorPartiality.txt", e.ToString());
+            }
         }
 
         public static void CreateInstance() {
