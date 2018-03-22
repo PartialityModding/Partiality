@@ -13,7 +13,6 @@ namespace Partiality.Modloader {
 
         public bool isEnabled;
 
-
         internal void BaseInit() {
             Init();
         }
@@ -36,19 +35,19 @@ namespace Partiality.Modloader {
             OnEnable();
         }
 
-        internal virtual void Init() {
+        public virtual void Init() {
 
         }
 
-        internal virtual void OnLoad() {
+        public virtual void OnLoad() {
 
         }
 
-        internal virtual void OnDisable() {
+        public virtual void OnDisable() {
 
         }
 
-        internal virtual void OnEnable() {
+        public virtual void OnEnable() {
 
         }
 
