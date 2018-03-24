@@ -12,27 +12,11 @@ using UnityEngine;
 namespace Partiality.Modloader {
     public class ModManager {
 
-        public ModelLoader modelLoader;
-        public PrefabLoader prefabLoader;
-        public TextureLoader textureLoader;
-        public MaterialLoader materialLoader;
-
         public List<PartialityMod> loadedMods;
         private Dictionary<string, PartialityMod> loadedModsDictionary;
         private Dictionary<string, string> loadedModsInfo;
 
         public void Init() {
-            modelLoader = new ModelLoader();
-            modelLoader.Init();
-
-            prefabLoader = new PrefabLoader();
-            prefabLoader.Init();
-
-            textureLoader = new TextureLoader();
-            textureLoader.Init();
-
-            materialLoader = new MaterialLoader();
-            materialLoader.Init();
 
             loadedMods = new List<PartialityMod>();
             loadedModsDictionary = new Dictionary<string, PartialityMod>();
@@ -44,14 +28,15 @@ namespace Partiality.Modloader {
         public void LoadAllMods() {
 
             //Get all the .dll files in the "Mods" folder and subfolders for the game
-            string modsPath = Path.Combine( PartialityManager.mainPath, "Mods" );
-            string[] modFiles = Directory.GetFiles( modsPath, ".dll", SearchOption.AllDirectories );
+            string modsPath = Path.Combine( PartialityManager.mainPath, "Mods" ) + '/';
+            string[] modFiles = Directory.GetFiles( modsPath, "*.dll", SearchOption.AllDirectories );
 
             //Check for dependencies. Load mods that have all dependencies, skip ones that don't.
             foreach( string filePath in modFiles ) {
                 try {
                     Assembly modAssembly = Assembly.LoadFrom( filePath );
-                } catch (System.Exception e ) {
+                    Debug.Log( "Loaded Assembly :" + modAssembly.FullName );
+                } catch( System.Exception e ) {
                     Debug.LogError( e );
                 }
             }
@@ -89,6 +74,8 @@ namespace Partiality.Modloader {
                     loadedModsDictionary.Add( newMod.ModID, newMod );
                     loadedModsInfo.Add( newMod.ModID, newMod.Version );
 
+                    Debug.Log("Initialized mod " + newMod.ModID + "succesfully." );
+
                 } catch( System.Exception e ) {
                     Debug.LogError( "Problem loading mod from type " + t.Name + "! \n" + e );
                 }
@@ -101,7 +88,7 @@ namespace Partiality.Modloader {
                     pMod.BaseLoad();
                     pMod.OnLoad();
                     pMod.OnEnable();
-                } catch (System.Exception e ) {
+                } catch( System.Exception e ) {
                     Debug.LogError( e );
                 }
             }
@@ -113,7 +100,7 @@ namespace Partiality.Modloader {
                 DisableMod( loadedModsDictionary[modID] );
         }
         public void DisableMod(PartialityMod mod) {
-            mod.EnableMod();
+            mod.DisableMod();
         }
 
         public void EnableMod(string modID) {
@@ -121,7 +108,7 @@ namespace Partiality.Modloader {
                 EnableMod( loadedModsDictionary[modID] );
         }
         public void EnableMod(PartialityMod mod) {
-            mod.DisableMod();
+            mod.EnableMod();
         }
 
     }
