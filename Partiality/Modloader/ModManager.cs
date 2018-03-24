@@ -70,6 +70,11 @@ namespace Partiality.Modloader {
                     newMod.BaseInit();
                     newMod.Init();
 
+                    if(newMod.ModID == "NULL" ) {
+                        Debug.LogError("Mod With NULL id, assigning the file as the ID");
+                        newMod.ModID = t.Name;
+                    }
+
                     loadedMods.Add( newMod );
                     loadedModsDictionary.Add( newMod.ModID, newMod );
                     loadedModsInfo.Add( newMod.ModID, newMod.Version );
