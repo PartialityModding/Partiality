@@ -34,7 +34,7 @@ namespace Partiality.Modloader {
             //Check for dependencies. Load mods that have all dependencies, skip ones that don't.
             foreach( string filePath in modFiles ) {
                 try {
-                    Assembly modAssembly = Assembly.LoadFrom( filePath );
+                    Assembly modAssembly = Assembly.Load(File.ReadAllBytes(filePath));
                     Debug.Log( "Loaded Assembly :" + modAssembly.FullName );
                 } catch( System.Exception e ) {
                     Debug.LogError( e );
